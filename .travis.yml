@@ -31,7 +31,7 @@ script:
 before_deploy:
 # Git Configuration
 - git checkout master
-- git remote set-url origin https://$GIT_HUB_USER:$GIT_HUB_TOKEN@github.com/matthewbill/octoalert.git
+- git remote set-url origin https://$GIT_HUB_USER:$GIT_HUB_TOKEN@github.com/octoalert/octoalert.git
 - git config --global push.default simple
 - git config user.name "Travis CI"
 - git config user.email "travis@travis-ci.org"

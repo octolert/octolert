@@ -11,15 +11,17 @@
     },
     "repository": {
         "type": "git",
-        "url": "git+https://github.com/matthewbill/octoalert.git"
+        "url": "git+https://github.com/octoalert/octoalert.git"
     },
     "keywords": [
-        "mdb"
+        "glo",
+        "boards",
+        "alert"
     ],
-    "author": "Matthew Bill",
+    "author": "Octoalert",
     "license": "MIT",
-    "homepage": "https://github.com/matthewbill/octoalert#readme",
-    "bugs": "https://github.com/matthewbill/octoalert/issues/",
+    "homepage": "https://github.com/octoalert/octoalert#readme",
+    "bugs": "https://github.com/octoalert/octoalert/issues/",
     "dependencies": {},
     "devDependencies": {
         "jsdoc": "3.5.5",
