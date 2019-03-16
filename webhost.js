@@ -6,6 +6,8 @@ const path = require('path');
 const express = require('express');
 const bodyParser = require('body-parser');
 
+const configRouter = require('./api/config-router.js');
+
 const app = express();
 
 const configuration = {
@@ -13,7 +15,7 @@ const configuration = {
   environment: 'development',
   isDebug: false,
   basePath: '',
-}
+};
 
 
 app.use(bodyParser.json());
@@ -24,6 +26,7 @@ app.set('view engine', 'ejs');
 app.set('views', path.resolve(__dirname, 'src'));
 
 app.use(configuration.basePath, express.static(path.join(`${__dirname}/public`)));
+app.use(configRouter);
 app.get('*', (req, res) => {
   console.log('GET Request Received.');
   res.status(200)
