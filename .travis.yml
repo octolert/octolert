@@ -4,6 +4,12 @@ language: node_js
 node_js:
   - "node"
 
+addons:
+  sonarcloud:
+    organization: "octolert"
+    token:
+      secure: $SONAR_TOKEN
+
 branches:
   only:
   - master
