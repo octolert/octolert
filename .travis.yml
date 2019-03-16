@@ -14,9 +14,9 @@ before_install:
 - sudo apt-get install -y jq
 
 script:
-- npm audit
-- npm run lint
-- npm test
+# - npm audit
+# - npm run lint
+# - npm test
 # Version
 - npm config set git-tag-version=false # git-tag-version is false otherwise cause infinite loop
 - npm version patch
