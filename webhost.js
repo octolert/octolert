@@ -6,10 +6,14 @@ const path = require('path');
 const express = require('express');
 const bodyParser = require('body-parser');
 
+const authGloBoardsRouter = require('./src/routes/auth-globoards-router.js');
 const boardsRouter = require('./api/boards-router.js');
 const configRouter = require('./api/config-router.js');
 const triggerAlertsRouter = require('./api/trigger-alerts-router.js');
 const triggersRouter = require('./api/triggers-router.js');
+const TokensService = require('./src/tokens/tokens-service.js');
+
+const tokensService = new TokensService();
 
 const app = express();
 
@@ -29,6 +33,7 @@ app.set('view engine', 'ejs');
 app.set('views', path.resolve(__dirname, 'src'));
 
 app.use(configuration.basePath, express.static(path.join(`${__dirname}/public`)));
+app.use(authGloBoardsRouter(tokensService));
 app.use(boardsRouter);
 app.use(configRouter);
 app.use(triggerAlertsRouter);

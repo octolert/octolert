@@ -6,7 +6,7 @@
           "type": "node",
           "request": "launch",
           "name": "Debug",
-          "program": "${workspaceRoot}/index.js",
+          "program": "${workspaceRoot}/webhost.js",
           "env": {
               "NODE_ENV": "development",
               "IS_DEBUG": "true"
