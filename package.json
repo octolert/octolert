@@ -29,6 +29,7 @@
         "body-parser": "1.18.3",
         "ejs": "2.6.1",
         "express": "4.16.4",
+        "mdb-build-tools": "0.1.1",
         "moment": "2.24.0",
         "prop-types": "15.7.2",
         "react": "16.8.4",
