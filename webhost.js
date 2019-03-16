@@ -6,7 +6,10 @@ const path = require('path');
 const express = require('express');
 const bodyParser = require('body-parser');
 
+const boardsRouter = require('./api/boards-router.js');
 const configRouter = require('./api/config-router.js');
+const triggerAlertsRouter = require('./api/trigger-alerts-router.js');
+const triggersRouter = require('./api/triggers-router.js');
 
 const app = express();
 
@@ -26,7 +29,10 @@ app.set('view engine', 'ejs');
 app.set('views', path.resolve(__dirname, 'src'));
 
 app.use(configuration.basePath, express.static(path.join(`${__dirname}/public`)));
+app.use(boardsRouter);
 app.use(configRouter);
+app.use(triggerAlertsRouter);
+app.use(triggersRouter);
 app.get('*', (req, res) => {
   console.log('GET Request Received.');
   res.status(200)

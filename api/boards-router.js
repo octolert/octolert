@@ -1,12 +1,12 @@
 const express = require('express');
 
-const configRouter = express.Router();
+const boardsRouter = express.Router();
 
-configRouter.route('/api/boards')
+boardsRouter.route('/api/boards')
   .get((req, res) => {
     res.status('200').send({
       setting1: 'hello world',
     });
   });
 
-module.exports = configRouter;
+module.exports = boardsRouter;
