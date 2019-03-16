@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 /**
- * @copyright Octoalert
+ * @copyright Octolert
 */
 
 console.log('hello world - this should break linting');

@@ -1,4 +1,4 @@
-# octoalert #
+# octolert #
 
 
 
@@ -6,7 +6,7 @@
 
 ``` bash
 
-npm install octoalert
+npm install octolert
 
 ```
 
@@ -14,6 +14,6 @@ or
 
 ``` bash
 
-npm install octoalert --save
+npm install octolert --save
 
 ```
