@@ -2,7 +2,7 @@
 /* eslint-disable class-methods-use-this */
 /* eslint-disable no-unused-vars */
 /* eslint-disable no-useless-constructor */
-class BoardsService {
+class GloboardsService {
   constructor() {
   }
 
@@ -19,4 +19,4 @@ class BoardsService {
   }
 }
 
-module.exports = BoardsService;
+module.exports = GloboardsService;
