@@ -8,6 +8,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 
 const authGloBoardsRouter = require('./src/routes/auth-globoards-router.js');
+const globoardsRouter = require('./src/routes/integrations/globoards-router.js');
 const boardsRouter = require('./api/boards-router.js');
 const settingsRouter = require('./api/settings-router.js');
 const triggerAlertsRouter = require('./api/trigger-alerts-router.js');
@@ -19,8 +20,11 @@ const TriggersRepository = require('./src/triggers/triggers-respository.js');
 const TriggersService = require('./src/triggers/triggers-service.js');
 const TriggerAlertsRepository = require('./src/trigger-alerts/triggers-alerts-respository.js');
 const TriggerAlertsService = require('./src/trigger-alerts/triggers-alerts-service.js');
+const GloboardsService = require('./src/globoards/globoards-service.js')
 
 const EventsProcessor = require('./src/events-processor.js');
+
+const globoardsService = new GloboardsService();
 
 const integrationsRepository = new IntegrationsRepository();
 const integrationsService = new IntegrationsService({ integrationsRepository });
@@ -59,6 +63,7 @@ app.set('view engine', 'ejs');
 app.set('views', path.resolve(__dirname, 'src'));
 
 app.use(configuration.basePath, express.static(path.join(`${__dirname}/public`)));
+app.use(globoardsRouter({ integrationsService, globoardsService }));
 app.use(authGloBoardsRouter({ integrationsService }));
 app.use(integrationsRouter({ integrationsService }));
 app.use(boardsRouter);
