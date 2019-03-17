@@ -30,6 +30,16 @@ class IntegrationsService {
     const self = this;
     self.integrationsRepository.deleteItem(name);
   }
+
+  saveToken(options) {
+    const self = this;
+    const entity = self.getItem(options.name);
+    if (entity == null) {
+      throw new Error('could not find integration.');
+    }
+    entity.attributes.token = options.token;
+    self.updateItem(entity);
+  }
 }
 
 module.exports = IntegrationsService;

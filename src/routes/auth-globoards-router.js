@@ -5,7 +5,18 @@ const getRouter = (options) => {
 
   router.route('/auth/globoards')
     .get((req, res) => {
-      // USE EXPRESS TO REDIRECT
+      // Save integration
+      const integration = {
+        name: 'globoards',
+        app: 'globoards',
+        attributes: {
+          clientId: req.query.clientId,
+          secret: req.query.secret,
+          token: '', // set to empty as not yet retrieved
+        },
+      };
+      options.integrationsService.addItem(integration);
+      // TODO: Redirect to oauth login for user
       res.status('200').send({
         setting1: 'hello world 2',
       });
@@ -13,9 +24,9 @@ const getRouter = (options) => {
 
   router.route('/auth/globoards/token')
     .get((req, res) => {
-      // GET TOKEN FROM REQUEST
-      // SAVE TOKEN TO TOKEN STORAGE (tokens service)
-      options.tokensService.saveToken();
+      // TODO: GET TOKEN FROM REQUEST
+      options.integrationsService.saveToken({ name: 'globoards', token: 'getfromreq' });
+      // TODO: Redirect user to page saying sucessful to setup trigger/alerts
       res.status('200').send({
         setting1: 'hello world 2',
       });
