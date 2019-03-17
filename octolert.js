@@ -15,6 +15,10 @@ const triggersRouter = require('./api/triggers-router.js');
 const integrationsRouter = require('./api/integrations-router.js');
 const IntegrationsRepository = require('./src/integrations/integrations-repository.js');
 const IntegrationsService = require('./src/integrations/integrations-service.js');
+const TriggersRepository = require('./src/triggers/triggers-respository.js');
+const TriggersService = require('./src/triggers/triggers-service.js');
+const TriggerAlertsRepository = require('./src/trigger-alerts/triggers-alerts-respository.js');
+const TriggerAlertsService = require('./src/trigger-alerts/triggers-alerts-service.js');
 
 const EventsProcessor = require('./src/events-processor.js');
 
@@ -23,6 +27,14 @@ eventsProcessor.start();
 
 const integrationsRepository = new IntegrationsRepository();
 const integrationsService = new IntegrationsService({ integrationsRepository });
+
+const triggersRepository = new TriggersRepository();
+const triggersService = new TriggersService({ triggersRepository });
+
+const triggerAlertsRepository = new TriggerAlertsRepository();
+const triggerAlertsService = new TriggerAlertsService({
+  triggerAlertsRepository,
+});
 
 const app = express();
 
@@ -46,8 +58,8 @@ app.use(authGloBoardsRouter({ integrationsService }));
 app.use(integrationsRouter({ integrationsService }));
 app.use(boardsRouter);
 app.use(settingsRouter);
-app.use(triggerAlertsRouter);
-app.use(triggersRouter);
+app.use(triggerAlertsRouter({ triggerAlertsService }));
+app.use(triggersRouter({ triggersService }));
 app.get('*', (req, res) => {
   console.log('GET Request Received.');
   res.status(200)
