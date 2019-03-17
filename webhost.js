@@ -1,5 +1,6 @@
+/* eslint-disable no-console */
 /**
- * @copyright Matthew Bill
+ * @copyright Octolert
 */
 
 const path = require('path');
@@ -8,12 +9,14 @@ const bodyParser = require('body-parser');
 
 const authGloBoardsRouter = require('./src/routes/auth-globoards-router.js');
 const boardsRouter = require('./api/boards-router.js');
-const configRouter = require('./api/config-router.js');
+const configRouter = require('./api/settings-router.js');
 const triggerAlertsRouter = require('./api/trigger-alerts-router.js');
 const triggersRouter = require('./api/triggers-router.js');
-const TokensService = require('./src/tokens/tokens-service.js');
+const IntegrationsRepository = require('./src/integrations/integrations-repository.js');
+const IntegrationsService = require('./src/integrations/integrations-service.js');
 
-const tokensService = new TokensService();
+const integrationsRepository = new IntegrationsRepository();
+const integrationsService = new IntegrationsService(integrationsRepository);
 
 const app = express();
 
@@ -33,7 +36,7 @@ app.set('view engine', 'ejs');
 app.set('views', path.resolve(__dirname, 'src'));
 
 app.use(configuration.basePath, express.static(path.join(`${__dirname}/public`)));
-app.use(authGloBoardsRouter(tokensService));
+app.use(authGloBoardsRouter(integrationsService));
 app.use(boardsRouter);
 app.use(configRouter);
 app.use(triggerAlertsRouter);

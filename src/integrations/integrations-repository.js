@@ -1,4 +1,4 @@
-class TriggersRepository {
+class IntegrationsRepository {
   constructor() {
     const self = this;
     self.items = [];
@@ -9,11 +9,11 @@ class TriggersRepository {
     return self.items;
   }
 
-  getItem(id) {
+  getItem(name) {
     const self = this;
     for (let i = 0; i < self.items.length; i += 1) {
       const item = self.items[i];
-      if (item.id === id) {
+      if (item.name === name) {
         return item;
       }
     }
@@ -29,21 +29,21 @@ class TriggersRepository {
     const self = this;
     for (let i = 0; i < self.items.length; i += 1) {
       const item = self.items[i];
-      if (item.id === entity.id) {
+      if (item.name === entity.name) {
         self.items[i] = entity;
       }
     }
   }
 
-  deleteItem(entity) {
+  deleteItem(name) {
     const self = this;
     for (let i = 0; i < self.items.length; i += 1) {
       const item = self.items[i];
-      if (item.id === entity.id) {
+      if (item.name === name) {
         self.items.splice(i, 1);
       }
     }
   }
 }
 
-module.exports = TriggersRepository;
+module.exports = IntegrationsRepository;

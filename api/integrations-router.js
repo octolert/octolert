@@ -3,9 +3,9 @@ const express = require('express');
 const getRouter = (options) => {
   const router = express.Router();
 
-  router.route('/auth/globoards')
+  router.route('/api/integrations/')
     .get((req, res) => {
-      // USE EXPRESS TO REDIRECT
+    // USE EXPRESS TO REDIRECT
       res.status('200').send({
         setting1: 'hello world 2',
       });

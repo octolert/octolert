@@ -7,6 +7,9 @@ __mocks__/*
 # Unit Tests
 __tests__/*
 
+# Bundled/Compiled Files
+public/*
+
 # Configuration files for VS Code
 .vscode/*
 
