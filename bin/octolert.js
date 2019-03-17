@@ -3,3 +3,5 @@
 /**
  * @copyright Octolert
 */
+
+const Octolert = require('../octolert');
