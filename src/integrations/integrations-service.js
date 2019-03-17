@@ -41,5 +41,4 @@ class IntegrationsService {
     self.updateItem(entity);
   }
 }
-
 module.exports = IntegrationsService;

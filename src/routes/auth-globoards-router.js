@@ -33,7 +33,6 @@ const getRouter = (options) => {
           code,
         },
       }).then((response) => {
-        console.log(response);
         const accessToken = response.data.access_token;
         options.integrationsService.saveToken({ name: 'globoards', token: accessToken });
         res.status('200').redirect('/api/integrations');
@@ -41,7 +40,6 @@ const getRouter = (options) => {
         console.log(err);
       });
     });
-
   return router;
 };
 

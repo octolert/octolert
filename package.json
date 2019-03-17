@@ -26,6 +26,7 @@
     "homepage": "https://github.com/octolert/octolert#readme",
     "bugs": "https://github.com/octolert/octolert/issues/",
     "dependencies": {
+        "@axosoft/glo-sdk": "1.0.7",
         "axios": "0.18.0",
         "body-parser": "1.18.3",
         "ejs": "2.6.1",

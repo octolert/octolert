@@ -9,6 +9,7 @@ const getRouter = (options) => {
       const boards = options.globoardsService.getBoards({
         token: integration.attributes.token,
       });
+      console.log(boards);
       res.status('200').send(boards);
     });
 
