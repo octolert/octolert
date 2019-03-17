@@ -55,5 +55,8 @@
         "eslint-plugin-react": "7.11.1",
         "jest": "24.1.0",
         "jsdoc": "3.5.5"
+    },
+    "bin": {
+        "octolert": "./bin/octolert.js"
     }
 }
