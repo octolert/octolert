@@ -36,7 +36,7 @@ const getRouter = (options) => {
         console.log(response);
         const accessToken = response.data.access_token;
         options.integrationsService.saveToken({ name: 'globoards', token: accessToken });
-        res.status('200').redirect('?message=globoard app integrated successfully');
+        res.status('200').redirect('/api/integrations');
       }).catch((err) => {
         console.log(err);
       });
