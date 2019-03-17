@@ -4,7 +4,7 @@ class TriggerAlertsRepository {
     self.items = [];
   }
 
-  getItems() {
+  getItems(options) {
     const self = this;
     return self.items;
   }

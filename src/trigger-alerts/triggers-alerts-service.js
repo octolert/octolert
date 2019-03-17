@@ -4,10 +4,10 @@ class TriggerAlertsService {
     self.triggerAlertsRepository = options.triggerAlertsRepository;
   }
 
-  getItems() {
+  getItems(options) {
     const self = this;
     try {
-      return self.triggerAlertsRepository.getItems();
+      return self.triggerAlertsRepository.getItems(options);
     } catch (error) {
       throw error;
     }

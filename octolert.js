@@ -22,9 +22,6 @@ const TriggerAlertsService = require('./src/trigger-alerts/triggers-alerts-servi
 
 const EventsProcessor = require('./src/events-processor.js');
 
-const eventsProcessor = new EventsProcessor({ delay: 60000 });
-eventsProcessor.start();
-
 const integrationsRepository = new IntegrationsRepository();
 const integrationsService = new IntegrationsService({ integrationsRepository });
 
@@ -35,6 +32,14 @@ const triggerAlertsRepository = new TriggerAlertsRepository();
 const triggerAlertsService = new TriggerAlertsService({
   triggerAlertsRepository,
 });
+
+const eventsProcessor = new EventsProcessor({
+  delay: 60000,
+  integrationsService,
+  triggersService,
+  triggerAlertsService,
+});
+eventsProcessor.start();
 
 const app = express();
 
