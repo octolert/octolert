@@ -4,4 +4,4 @@
  * @copyright Octolert
 */
 
-const Octolert = require('../octolert');
+require('../octolert');

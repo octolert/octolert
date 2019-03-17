@@ -6,7 +6,7 @@
           "type": "node",
           "request": "launch",
           "name": "Debug",
-          "program": "${workspaceRoot}/webhost.js",
+          "program": "${workspaceRoot}/bin/octolert.js",
           "env": {
               "NODE_ENV": "development",
               "IS_DEBUG": "true"

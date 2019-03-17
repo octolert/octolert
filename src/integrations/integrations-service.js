@@ -1,34 +1,34 @@
 class IntegrationsService {
   constructor(options) {
     const self = this;
-    self.integrationRepository = options.integrationRepository;
+    self.integrationsRepository = options.integrationsRepository;
   }
 
   getItems() {
     const self = this;
-    return self.integrationRepository.getItems();
+    return self.integrationsRepository.getItems();
   }
 
   getItem(name) {
     const self = this;
-    return self.integrationRepository.getItem(name);
+    return self.integrationsRepository.getItem(name);
   }
 
   addItem(entity) {
     const self = this;
-    self.integrationRepository.addItem(entity);
+    self.integrationsRepository.addItem(entity);
     return entity;
   }
 
   updateItem(entity) {
     const self = this;
-    self.integrationRepository.updateItem(entity);
+    self.integrationsRepository.updateItem(entity);
     return entity;
   }
 
   deleteItem(name) {
     const self = this;
-    self.integrationRepository.deleteItem(name);
+    self.integrationsRepository.deleteItem(name);
   }
 }
 

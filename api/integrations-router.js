@@ -3,22 +3,30 @@ const express = require('express');
 const getRouter = (options) => {
   const router = express.Router();
 
-  router.route('/api/integrations/')
+  router.route('/api/integrations')
     .get((req, res) => {
-    // USE EXPRESS TO REDIRECT
-      res.status('200').send({
-        setting1: 'hello world 2',
-      });
+      const entities = options.integrationsService.getItems();
+      res.status(200).send(entities);
+    })
+    .post((req, res) => {
+      const entity = options.integrationsService.addItem(req.body);
+      res.status('200').send(entity);
     });
 
-  router.route('/auth/globoards/token')
+  router.route('/api/integrations/:name')
     .get((req, res) => {
-      // GET TOKEN FROM REQUEST
-      // SAVE TOKEN TO TOKEN STORAGE (tokens service)
-      options.tokensService.saveToken();
-      res.status('200').send({
-        setting1: 'hello world 2',
-      });
+      const entity = options.integrationsService.getItem(req.params.name);
+      res.status(200).send(entity);
+    })
+    .put((req, res) => {
+      const entity = req.body;
+      entity.name = req.params.name;
+      options.integrationsService.updateItem(entity);
+      res.status(200).send(entity);
+    })
+    .delete((req, res) => {
+      options.integrationsService.deleteItem(req.params.name);
+      res.status(200).send();
     });
 
   return router;
