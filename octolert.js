@@ -16,6 +16,11 @@ const integrationsRouter = require('./api/integrations-router.js');
 const IntegrationsRepository = require('./src/integrations/integrations-repository.js');
 const IntegrationsService = require('./src/integrations/integrations-service.js');
 
+const EventsProcessor = require('./src/events-processor.js');
+
+const eventsProcessor = new EventsProcessor({ delay: 60000 });
+eventsProcessor.start();
+
 const integrationsRepository = new IntegrationsRepository();
 const integrationsService = new IntegrationsService({ integrationsRepository });
 
