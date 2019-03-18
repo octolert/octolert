@@ -9,7 +9,6 @@ const bodyParser = require('body-parser');
 
 const authGloBoardsRouter = require('./src/routes/auth-globoards-router.js');
 const globoardsRouter = require('./src/routes/integrations/globoards-router.js');
-const boardsRouter = require('./api/boards-router.js');
 const settingsRouter = require('./api/settings-router.js');
 const triggerAlertsRouter = require('./api/trigger-alerts-router.js');
 const triggersRouter = require('./api/triggers-router.js');
@@ -66,7 +65,6 @@ app.use(configuration.basePath, express.static(path.join(`${__dirname}/public`))
 app.use(globoardsRouter({ integrationsService, globoardsService }));
 app.use(authGloBoardsRouter({ integrationsService }));
 app.use(integrationsRouter({ integrationsService }));
-app.use(boardsRouter);
 app.use(settingsRouter);
 app.use(triggerAlertsRouter({ triggerAlertsService }));
 app.use(triggersRouter({ triggersService }));
