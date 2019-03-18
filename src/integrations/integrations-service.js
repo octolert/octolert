@@ -4,41 +4,43 @@ class IntegrationsService {
     self.integrationsRepository = options.integrationsRepository;
   }
 
-  getItems() {
+  async getItems() {
     const self = this;
-    return self.integrationsRepository.getItems();
+    const items = await self.integrationsRepository.getItems();
+    return items;
   }
 
-  getItem(name) {
+  async getItem(name) {
     const self = this;
-    return self.integrationsRepository.getItem(name);
+    const item = await self.integrationsRepository.getItem(name);
+    return item;
   }
 
-  addItem(entity) {
+  async addItem(entity) {
     const self = this;
-    self.integrationsRepository.addItem(entity);
+    await self.integrationsRepository.addItem(entity);
     return entity;
   }
 
-  updateItem(entity) {
+  async updateItem(entity) {
     const self = this;
-    self.integrationsRepository.updateItem(entity);
+    await self.integrationsRepository.updateItem(entity);
     return entity;
   }
 
-  deleteItem(name) {
+  async deleteItem(name) {
     const self = this;
-    self.integrationsRepository.deleteItem(name);
+    await self.integrationsRepository.deleteItem(name);
   }
 
-  saveToken(options) {
+  async saveToken(options) {
     const self = this;
-    const entity = self.getItem(options.name);
+    const entity = await self.getItem(options.name);
     if (entity == null) {
       throw new Error('could not find integration.');
     }
     entity.attributes.token = options.token;
-    self.updateItem(entity);
+    await self.updateItem(entity);
   }
 }
 module.exports = IntegrationsService;

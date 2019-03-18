@@ -5,28 +5,48 @@ const getRouter = (options) => {
 
   router.route('/api/integrations')
     .get((req, res) => {
-      const entities = options.integrationsService.getItems();
-      res.status(200).send(entities);
+      options.integrationsService.getItems().then((result) => {
+        res.status(200).send(result);
+      }).catch((reason) => {
+        console.log(reason);
+        res.status(500).send('error');
+      });
     })
     .post((req, res) => {
-      const entity = options.integrationsService.addItem(req.body);
-      res.status('200').send(entity);
+      options.integrationsService.addItem(req.body).then((result) => {
+        res.status(200).send(result);
+      }).catch((reason) => {
+        console.log(reason);
+        res.status(500).send('error');
+      });
     });
 
   router.route('/api/integrations/:name')
     .get((req, res) => {
-      const entity = options.integrationsService.getItem(req.params.name);
-      res.status(200).send(entity);
+      options.integrationsService.getItem(req.params.name).then((result) => {
+        res.status(200).send(result);
+      }).catch((reason) => {
+        console.log(reason);
+        res.status(500).send('error');
+      });
     })
     .put((req, res) => {
       const entity = req.body;
       entity.name = req.params.name;
-      options.integrationsService.updateItem(entity);
-      res.status(200).send(entity);
+      options.integrationsService.updateItem(entity).then((result) => {
+        res.status(200).send(result);
+      }).catch((reason) => {
+        console.log(reason);
+        res.status(500).send('error');
+      });
     })
     .delete((req, res) => {
-      options.integrationsService.deleteItem(req.params.name);
-      res.status(200).send();
+      options.integrationsService.deleteItem(req.params.name).then((result) => {
+        res.status(200).send(result);
+      }).catch((reason) => {
+        console.log(reason);
+        res.status(500).send('error');
+      });
     });
 
   return router;
