@@ -27,28 +27,34 @@ class EventsProcessor {
     console.log('Processing Events...');
     if (self.running) {
       // loop through each integration
-      const integrations = processor.integrationsService.getItems();
-
-      for (let i = 0; i < integrations.length; i += 1) {
-        const integration = integrations[i];
-        const triggers = processor.triggers.getItems({ integrationId: integration.id });
-        for (let j = 0; j < triggers.length; j += 1) {
-          // check to see if any triggers have been met
+      processor.integrationsService.getItems().then((result) => {
+        const integrations = result;
+        console.log(`${integrations.length} Integrations Found.`);
+        for (let i = 0; i < integrations.length; i += 1) {
+          const integration = integrations[i];
+          const triggers = processor.triggersService.getItems({ integrationId: integration.id });
+          for (let j = 0; j < triggers.length; j += 1) {
+            // check to see if any triggers have been met
+          }
         }
-      }
-      // get the cards for the integration
 
-      // check against previous cards
+        // get the cards for the integration
 
-      // work out what events have happened
+        // check against previous cards
 
-      // go through each trigger. If event matches trigger. then fire alerts by
+        // work out what events have happened
 
-      // get all alerts for the trigger
+        // go through each trigger. If event matches trigger. then fire alerts by
 
-      // fire off each alert
+        // get all alerts for the trigger
 
-      setTimeout(self.process, processor.delay, processor);
+        // fire off each alert
+
+        setTimeout(self.process, processor.delay, processor);
+      }).catch((reason) => {
+        console.log(reason);
+        setTimeout(self.process, processor.delay, processor);
+      });
     }
   }
 }
