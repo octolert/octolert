@@ -1,0 +1,9 @@
+.navbar{
+    background-color: #2d0525;
+}
+
+.brand{
+    background-color: #5a0e2b;
+    display: inline-flex;
+    padding: 15px;
+}

@@ -48,10 +48,6 @@
         "@babel/preset-react": "7.0.0",
         "babel-loader": "8.0.2",
         "css-loader": "1.0.0",
-        "style-loader": "0.23.0",
-        "webpack": "4.19.1",
-        "webpack-cli": "3.1.1",
-        "webpack-dev-server": "3.1.8",
         "eslint": "5.14.0",
         "eslint-config-airbnb": "17.1.0",
         "eslint-config-mdb": "0.1.1",
@@ -59,7 +55,12 @@
         "eslint-plugin-jsx-a11y": "6.1.1",
         "eslint-plugin-react": "7.11.1",
         "jest": "24.1.0",
-        "jsdoc": "3.5.5"
+        "jsdoc": "3.5.5",
+        "react-svg-loader": "2.1.0",
+        "style-loader": "0.23.0",
+        "webpack": "4.19.1",
+        "webpack-cli": "3.1.1",
+        "webpack-dev-server": "3.1.8"
     },
     "bin": {
         "octolert": "./bin/octolert.js"

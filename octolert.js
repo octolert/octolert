@@ -13,6 +13,7 @@ const settingsRouter = require('./api/settings-router.js');
 const triggerAlertsRouter = require('./api/trigger-alerts-router.js');
 const triggersRouter = require('./api/triggers-router.js');
 const integrationsRouter = require('./api/integrations-router.js');
+const defaultAlertsRouter = require('./api/default-alerts-router.js');
 const IntegrationsRepository = require('./src/integrations/integrations-repository.js');
 const IntegrationsService = require('./src/integrations/integrations-service.js');
 const TriggersRepository = require('./src/triggers/triggers-respository.js');
@@ -20,6 +21,7 @@ const TriggersService = require('./src/triggers/triggers-service.js');
 const TriggerAlertsRepository = require('./src/trigger-alerts/triggers-alerts-respository.js');
 const TriggerAlertsService = require('./src/trigger-alerts/triggers-alerts-service.js');
 const GloboardsService = require('./src/globoards/globoards-service.js')
+const DefaultAlertsService = require('./src/default-alerts/default-alerts-service.js');
 
 const EventsProcessor = require('./src/events-processor.js');
 
@@ -27,6 +29,9 @@ const globoardsService = new GloboardsService();
 
 const integrationsRepository = new IntegrationsRepository();
 const integrationsService = new IntegrationsService({ integrationsRepository });
+
+const defaultAlertsRepository = new DefaultAlertsRepository();
+const defaultAlertsService = new DefaultAlertsService({ defaultAlertsRepository });
 
 const triggersRepository = new TriggersRepository();
 const triggersService = new TriggersService({ triggersRepository });
@@ -68,6 +73,7 @@ app.use(integrationsRouter({ integrationsService }));
 app.use(settingsRouter);
 app.use(triggerAlertsRouter({ triggerAlertsService }));
 app.use(triggersRouter({ triggersService }));
+app.use(defaultAlertsRouter({ defaultAlertsService }));
 app.get('*', (req, res) => {
   console.log('GET Request Received.');
   res.status(200)
