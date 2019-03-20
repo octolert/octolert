@@ -38,7 +38,8 @@
         "prop-types": "15.7.2",
         "react": "16.8.4",
         "react-dom": "16.8.4",
-        "react-router-dom": "4.4.0"
+        "react-router-dom": "4.4.0",
+        "say": "0.15.0"
     },
     "devDependencies": {
         "@babel/cli": "7.1.0",
