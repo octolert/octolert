@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
 import axios from 'axios';
 
 class DefaultAlertConfig extends Component {
@@ -90,10 +89,10 @@ class DefaultAlertConfig extends Component {
 
     if (isLoaded) {
       return (
-        <div className="container">
+        <div>
           <form onSubmit={this.handleSubmit}>
-            <h2>Configure Default Alert</h2>
-            <Link to="/settings/">Back to Settings</Link>
+            <h4>Configure Default Alert</h4>
+            <p className="secondary">This applies to all columns that have no specific alerts configured.</p>
             <div className="input-group">
               <label htmlFor="positiveMessage">Postive message</label>
               <textarea rows="6" value={positiveMessage} id="positiveMessage" name="positiveMessage" onChange={this.handleChange} type="text" />

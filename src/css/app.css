@@ -1,63 +1,117 @@
 @import url('https://fonts.googleapis.com/css?family=Varela+Round');
 
 body {
-  background-color: #1f0416;
+  background-color: #f3e8ee;
   font-family: sans-serif;
-  color:white;
-  height:100%;
-  padding:0;
-  margin:0;
+  color: black;
+  height: 100%;
+  padding: 0;
+  margin: 0;
   font-family: 'Varela Round', sans-serif;
-  
 }
-html{
-  height:100%;
-  padding:0;
-  margin:0;
+
+html {
+  height: 100%;
+  padding: 0;
+  margin: 0;
 }
 
 .container {
-    display: flex;
-    align-items: left;
-    justify-content: center;
-    flex-direction: column;
-    margin-left: 20%;
-    margin-right:20%;
-  }
-  
-
-.text-center{
-    text-align: center;
+  margin-top: 10px;
+  margin-bottom: 30px;
+  padding: 20px 30px;
+  min-height: 70vh;
+  background-color: white;
+  border-radius: 6px;
+  -webkit-box-shadow: 0px 0px 42px 0px rgba(255, 70, 103, 0.1);
+  -moz-box-shadow: 0px 0px 42px 0px rgba(255, 70, 103, 0.1);
+  box-shadow: 0px 0px 42px 0px rgba(255, 70, 103, 0.1);
 }
 
-.button-primary{
-    margin-top: 25px;
-    border: 0px;
-    padding: 8px 10px;
-    border-radius: 4px;
-    color: white;
-    background-color: #ff4654;
-    font-weight: bolder;
-    font-family: 'Varela Round', sans-serif;
-    width: 100%;
-  }
 
-  .input-group{
-    margin-top: 20px;
-  }
+.text-center {
+  text-align: center;
+}
 
-  .input-group label{
-    display: flex;
-    margin-bottom: 10px;
-    color: #ff4654;
-    font-size: 14px;
-  }
-  
-  .input-group input,
-  .input-group textarea,
-  .input-group select{
-    border: 0px;
-    padding: 8px 20px;
-    border-radius: 5px;
-    width: 100%;
-  }
+.button-primary {
+  margin-top: 14px;
+  border: 0px;
+  padding: 10px 14px;
+  border-radius: 4px;
+  color: white;
+  background-color: #ff4654;
+  font-weight: bolder;
+  font-family: 'Varela Round', sans-serif;
+  text-decoration: none;
+  text-align: center;
+}
+
+.input-group {
+  margin-top: 20px;
+}
+
+.input-group label {
+  display: flex;
+  margin-bottom: 10px;
+  color: grey;
+  font-size: 12px;
+}
+
+.secondary {
+  color: grey;
+}
+
+.input-group input,
+.input-group textarea,
+.input-group select {
+  padding: 12px 20px;
+  border-radius: 5px;
+  min-width: 50%;
+  border: 1px solid #e2cad6;
+  font-family: 'Varela Round', sans-serif;
+  transition: box-shadow 0.1s ease-out;
+}
+
+.input-group input:focus,
+.input-group textarea:focus,
+.input-group select:focus,
+.button-primary:focus {
+  outline: 0;
+  box-shadow: 0 0 0pt 2pt #fbdbeb;
+  transition: box-shadow 0.1s ease-out;
+}
+
+
+
+.settings-nav-button {
+  border: 0px;
+  border-radius: 4px;
+  margin-bottom: 5px;
+  padding: 10px 15px;
+  background-color: #fffeff;
+  color: #ff4654;
+  transition: box-shadow 0.1s ease-out;
+}
+
+.settings-nav-button-active {
+  border: 0px;
+  border-radius: 4px;
+  margin-bottom: 5px;
+  padding: 10px 15px;
+  background-color: #fbdbeb;
+  color: #ff4654;
+  transition: box-shadow 0.1s ease-out;
+}
+
+.settings-nav-button:focus{
+  outline: 0;
+  box-shadow: 0 0 0pt 2pt #fbdbeb;
+  transition: box-shadow 0.1s ease-out;
+}
+
+.settings-nav-button-active:focus{
+  outline: 0;
+  box-shadow: 0 0 0pt 2pt #f9b1d5;
+  transition: box-shadow 0.1s ease-out;
+}
+

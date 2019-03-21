@@ -1,9 +1,12 @@
 .navbar{
-    background-color: #2d0525;
+    background-color: white;
 }
 
 .brand{
-    background-color: #5a0e2b;
     display: inline-flex;
     padding: 15px;
+    color: #ff4654;
+    font-size: 35px;
+    font-family: 'Varela Round', sans-serif;
+    line-height: 50px;
 }

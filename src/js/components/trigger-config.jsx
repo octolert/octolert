@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
 
 class TriggerConfig extends Component {
+  //TODO JD WIP
   constructor(props) {
     super(props);
     this.state = {
@@ -32,22 +32,28 @@ class TriggerConfig extends Component {
 
   render() {
     return (
-      <div className="container">
-        <h2>Add/Edit Custom Alerts</h2>
-        <Link to="/settings/">Back to Settings</Link>
-        <div className="input-group">
-          <label>Boards</label>
-          <select>
-            <option value="TEST-BOARD">Test board</option>
-          </select>
-        </div>
-        <div className="input-group">
-          <label>Column</label>
-          <select>
-            <option value="todo">Todo</option>
-            <option value="in-progress">In-progress</option>
-            <option value="done">Done</option>
-          </select>
+      <div>
+        <h4>Add/Edit Custom Alerts</h4>
+        <p className="secondary">Apply alerts for specific columns. (this page is still under development)</p>
+        <div className="row">
+          <div className="col-xs-3">
+            <div className="input-group">
+              <label>Boards</label>
+              <select>
+                <option value="TEST-BOARD">Test board</option>
+              </select>
+            </div>
+          </div>
+          <div className="col-xs-3">
+            <div className="input-group">
+              <label>Column</label>
+              <select>
+                <option value="todo">Todo</option>
+                <option value="in-progress">In-progress</option>
+                <option value="done">Done</option>
+              </select>
+            </div>
+          </div>
         </div>
         <div className="input-group">
           <label>Postive message</label>
@@ -58,6 +64,7 @@ class TriggerConfig extends Component {
           <textarea rows="6" type="text" />
         </div>
         <button type="button" className="button-primary">Save Changes</button>
+        <br />
       </div>
     );
   }

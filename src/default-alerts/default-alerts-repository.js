@@ -1,6 +1,7 @@
 class DefaultAlertsRepository {
   constructor() {
     const self = this;
+    //TODO JD map to persisted storage Inserted fake data for now
     self.items = [
       {
         type: 'say',

@@ -20,7 +20,8 @@ const TriggersRepository = require('./src/triggers/triggers-respository.js');
 const TriggersService = require('./src/triggers/triggers-service.js');
 const TriggerAlertsRepository = require('./src/trigger-alerts/triggers-alerts-respository.js');
 const TriggerAlertsService = require('./src/trigger-alerts/triggers-alerts-service.js');
-const GloboardsService = require('./src/globoards/globoards-service.js')
+const GloboardsService = require('./src/globoards/globoards-service.js');
+const DefaultAlertsRepository = require('./src/default-alerts/default-alerts-repository.js');
 const DefaultAlertsService = require('./src/default-alerts/default-alerts-service.js');
 
 const EventsProcessor = require('./src/events-processor.js');

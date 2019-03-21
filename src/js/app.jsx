@@ -1,29 +1,68 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Route, Redirect } from 'react-router-dom';
+import axios from 'axios';
 import Navbar from './components/navbar';
 import Integration from './pages/integration';
-import TriggerConfig from './pages/trigger-config';
-import DefaultAlertConfig from './pages/default-alert-config';
-import ViewCustomConfig from './pages/view-custom-config';
 import Settings from './pages/settings';
 
-
 class App extends Component {
-  render() {
-    return (
-      <Router>
-        <Navbar></Navbar>
-        <br></br>
-        <Route exact path="/" render={() => (
-          <Redirect to="/settings"/>
-        )}/>
-        <Route path="/integrate/" component={Integration} />
-        <Route path="/settings/" component={Settings} />
-        <Route path="/trigger-config/" component={TriggerConfig} />
-        <Route path="/default-alert-config/" component={DefaultAlertConfig} />
-        <Route path="/view-custom-alerts/" component={ViewCustomConfig} />
-      </Router>
+  constructor(props) {
+    super(props);
+    this.state = {
+      isLoaded: false,
+      auth: null,
+    };
+  }
+
+  componentDidMount() {
+    axios.get('/api/integrations').then(
+      (result) => {
+        this.setState({
+          isLoaded: true,
+          auth: result.data,
+        });
+      },
+      (error) => {
+        this.setState({
+          isLoaded: true,
+          auth: null,
+        });
+      },
     );
+  }
+
+  render() {
+    const { isLoaded, auth } = this.state;
+    if (isLoaded) {
+      return (
+        <Router>
+          <Navbar />
+          <br />
+          {auth !== null && auth.length !== 0 && (
+          <Route
+            exact
+            path="/"
+            render={() => (
+              <Redirect to="/settings" />
+            )}
+          />
+          )}
+          {auth !== null && auth.length === 0 && (
+          <Route
+            exact
+            path="/"
+            render={() => (
+              <Redirect to="/integrate" />
+            )}
+          />
+          )}
+          <Route path="/integrate/" component={Integration} />
+          <Route path="/settings/" component={Settings} />
+        </Router>
+      );
+    } else {
+      return <p>is loading</p>;
+    }
   }
 }
 

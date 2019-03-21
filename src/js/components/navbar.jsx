@@ -1,15 +1,15 @@
 import React, { Component } from 'react';
-import BrandLogo from '../../img/logo.svg';
+import BrandLogo from '../../img/octo-logo.svg';
 
 
 class Navbar extends Component {
   render() {
     return (
     <div class="navbar">
-        <div class="brand">
-            {/* <BrandLogo width={50} height={50}/> */}
-            octolert
-        </div>
+      <div class="brand">
+        <BrandLogo width={50} height={50} />
+        <span style={{marginLeft: '5px'}}>octolert</span>
+      </div>
     </div>
     );
   }
