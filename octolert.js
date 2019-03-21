@@ -12,6 +12,7 @@ const globoardsRouter = require('./src/routes/integrations/globoards-router.js')
 const settingsRouter = require('./api/settings-router.js');
 const triggerAlertsRouter = require('./api/trigger-alerts-router.js');
 const triggersRouter = require('./api/triggers-router.js');
+const alertPlayerRouter = require('./api/alert-player-router.js');
 const integrationsRouter = require('./api/integrations-router.js');
 const defaultAlertsRouter = require('./api/default-alerts-router.js');
 const IntegrationsRepository = require('./src/integrations/integrations-repository.js');
@@ -23,6 +24,7 @@ const TriggerAlertsService = require('./src/trigger-alerts/triggers-alerts-servi
 const GloboardsService = require('./src/globoards/globoards-service.js');
 const DefaultAlertsRepository = require('./src/default-alerts/default-alerts-repository.js');
 const DefaultAlertsService = require('./src/default-alerts/default-alerts-service.js');
+const AlertPlayer = require('./src/octobuddy/alert-player.js');
 
 const EventsProcessor = require('./src/events-processor.js');
 
@@ -41,6 +43,8 @@ const triggerAlertsRepository = new TriggerAlertsRepository();
 const triggerAlertsService = new TriggerAlertsService({
   triggerAlertsRepository,
 });
+
+const alertPlayer = new AlertPlayer();
 
 const eventsProcessor = new EventsProcessor({
   delay: 60000,
@@ -75,6 +79,7 @@ app.use(settingsRouter);
 app.use(triggerAlertsRouter({ triggerAlertsService }));
 app.use(triggersRouter({ triggersService }));
 app.use(defaultAlertsRouter({ defaultAlertsService }));
+app.use(alertPlayerRouter({ alertPlayer }));
 app.get('*', (req, res) => {
   console.log('GET Request Received.');
   res.status(200)

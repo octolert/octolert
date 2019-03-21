@@ -6,6 +6,7 @@ class EventsProcessor {
     self.integrationsService = options.integrationsService;
     self.triggersService = options.triggersService;
     self.triggerAlertsService = options.triggerAlertsService;
+    self.alertPlayer = options.alertPlayer;
   }
 
   start() {
@@ -22,39 +23,46 @@ class EventsProcessor {
   }
 
   // eslint-disable-next-line class-methods-use-this
-  process(processor) {
+  async process(processor) {
     const self = processor;
-    console.log('Processing Events...');
+
     if (self.running) {
+      console.log('Creating Events...');
       // loop through each integration
-      processor.integrationsService.getItems().then((result) => {
-        const integrations = result;
-        console.log(`${integrations.length} Integrations Found.`);
-        for (let i = 0; i < integrations.length; i += 1) {
-          const integration = integrations[i];
-          const triggers = processor.triggersService.getItems({ integrationId: integration.id });
-          for (let j = 0; j < triggers.length; j += 1) {
-            // check to see if any triggers have been met
-          }
+      const integrations = await processor.integrationsService.getItems();
+      console.log(`${integrations.length} Integrations Found.`);
+      for (let i = 0; i < integrations.length; i += 1) {
+        const integration = integrations[i];
+
+        // GET EVENTS
+
+        // get list of all cards for board
+
+        // create map of card ids against column ids
+
+        // get list of all cards for board
+
+        // get list of all columns for board
+
+        // create map of column ids to positions
+
+        // loop through each card
+
+        // get the current column of card. get pos of current column from map. get old column of card. check two pos and see if movement. raise an event if there has
+
+        const triggers = await processor.triggersService.getItems({ integrationId: integration.id });
+
+        // check event against all triggers
+
+        console.log(`${triggers.length} triggers found for integration ${integration.name}.`);
+        for (let j = 0; j < triggers.length; j += 1) {
+          // check to see if any triggers have been met
+          const alerts = await processor.triggerAlertsService.getItems();
+          console.log(`${alerts.length} alerts found for trigger for integration ${integration.name}.`);
+          await self.alertPlayer.play(alerts);
         }
-
-        // get the cards for the integration
-
-        // check against previous cards
-
-        // work out what events have happened
-
-        // go through each trigger. If event matches trigger. then fire alerts by
-
-        // get all alerts for the trigger
-
-        // fire off each alert
-
-        setTimeout(self.process, processor.delay, processor);
-      }).catch((reason) => {
-        console.log(reason);
-        setTimeout(self.process, processor.delay, processor);
-      });
+      }
+      setTimeout(self.process, processor.delay, processor);
     }
   }
 }
