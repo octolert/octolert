@@ -51,6 +51,7 @@ const eventsProcessor = new EventsProcessor({
   integrationsService,
   triggersService,
   triggerAlertsService,
+  globoardsService,
 });
 eventsProcessor.start();
 
