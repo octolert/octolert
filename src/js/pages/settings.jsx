@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import DefaultAlertConfig from '../components/default-alert-config';
 import TriggerConfig from '../components/trigger-config';
 import ViewCustomConfig from '../components/view-custom-config';
+import AlertPlayer from '../components/alert-player';
 
 class Settings extends Component {
   constructor(props) {
@@ -46,13 +47,22 @@ class Settings extends Component {
               value="VIEW_ALL_ALERTS"
               onClick={this.changeTab.bind(this)}
             >
-            View All Custom Alerts
+            View All Custom Alerts 2
+            </button>
+            <button
+              type="button"
+              className={settingSelected === 'ALERT_PLAYER' ? 'settings-nav-button-active' : 'settings-nav-button'}
+              value="ALERT_PLAYER"
+              onClick={this.changeTab.bind(this)}
+            >
+            Alert Player
             </button>
           </div>
           <div className="col-xs-9">
             { settingSelected === 'DEFAULT_ALERT' && <DefaultAlertConfig /> }
             { settingSelected === 'TRIGGER_CONFIG' && <TriggerConfig /> }
             { settingSelected === 'VIEW_ALL_ALERTS' && <ViewCustomConfig /> }
+            { settingSelected === 'ALERT_PLAYER' && <AlertPlayer /> }
           </div>
         </div>
       </div>

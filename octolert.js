@@ -27,6 +27,7 @@ const DefaultAlertsService = require('./src/default-alerts/default-alerts-servic
 const AlertPlayer = require('./src/octobuddy/alert-player.js');
 
 const EventsProcessor = require('./src/events-processor.js');
+const Network = require('./network.js');
 
 const globoardsService = new GloboardsService();
 
@@ -56,6 +57,7 @@ const eventsProcessor = new EventsProcessor({
 eventsProcessor.start();
 
 const app = express();
+const basePath = 'http://localhost:13378';
 
 const configuration = {
   port: 13378,
@@ -97,5 +99,5 @@ app.listen(configuration.port, (err) => {
     console.log(err);
     process.exit(1);
   }
-  console.log(`==> 🌎 Listening on port ${configuration.port}. Open up http://localhost:${configuration.port}/ in your browser.`);
+  console.log(`==> 🌎 Listening on port ${configuration.port}. Open up ${basePath}/ in your browser.`);
 });
