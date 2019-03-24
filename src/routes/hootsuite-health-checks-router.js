@@ -1,5 +1,8 @@
 const express = require('express');
 
+/**
+ * Health checks based on hootsuite specification: https://hootsuite.github.io/health-checks-api/
+ */
 const getRouter = () => {
   const router = express.Router();
 

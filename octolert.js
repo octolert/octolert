@@ -5,9 +5,12 @@
 
 const path = require('path');
 const express = require('express');
+const cors = require('cors');
 const bodyParser = require('body-parser');
 const { LoggerFactory } = require('mdb-logging');
 const { EnvironmentNames } = require('mdb-core');
+
+const packageJson = require('./package.json');
 
 const authGloBoardsRouter = require('./src/routes/auth-globoards-router.js');
 const globoardsRouter = require('./src/routes/integrations/globoards-router.js');
@@ -62,9 +65,6 @@ const eventsProcessor = new EventsProcessor({
 });
 eventsProcessor.start();
 
-const app = express();
-const basePath = 'http://localhost:13378';
-
 const configuration = {
   port: 13378,
   environment: 'development',
@@ -72,7 +72,8 @@ const configuration = {
   basePath: '',
 };
 
-
+const app = express();
+app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.enable('trust proxy');
@@ -80,6 +81,8 @@ app.disable('x-powered-by');
 app.set('view engine', 'ejs');
 app.set('views', path.resolve(__dirname, 'src'));
 
+app.options('*', cors());
+app.disable('x-powered-by');
 app.use(configuration.basePath, express.static(path.join(`${__dirname}/public`)));
 app.use(globoardsRouter({ logger, integrationsService, globoardsService }));
 app.use(authGloBoardsRouter({ logger, integrationsService }));
@@ -96,6 +99,7 @@ app.get('*', (req, res) => {
     isDebug: configuration.isDebug,
     basePath: configuration.basePath,
     appData: {
+      version: packageJson.version,
     },
   };
   res.status(200).render('index', viewModel);
@@ -106,5 +110,5 @@ app.listen(configuration.port, (err) => {
     logger.error(err);
     process.exit(1);
   }
-  logger.info(`==> 🌎 Listening on port ${configuration.port}. Open up ${basePath}/ in your browser.`);
+  logger.info(`==> 🌎 Listening on port ${configuration.port}. Open up http://localhost:13378/ in your browser.`);
 });
