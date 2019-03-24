@@ -2,6 +2,7 @@ class TriggersService {
   constructor(options) {
     const self = this;
     self.triggersRepository = options.triggersRepository;
+    self.logger = options.logger;
   }
 
   async getItems() {
@@ -10,6 +11,7 @@ class TriggersService {
       const entities = await self.triggersRepository.getItems();
       return entities;
     } catch (error) {
+      self.logger.error(error);
       throw error;
     }
   }
@@ -20,6 +22,7 @@ class TriggersService {
       const entity = self.triggersRepository.getItem(id);
       return entity;
     } catch (error) {
+      self.logger.error(error);
       throw error;
     }
   }
@@ -29,6 +32,7 @@ class TriggersService {
     try {
       return self.triggersRepository.createItem(entity);
     } catch (error) {
+      self.logger.error(error);
       throw error;
     }
   }
@@ -38,6 +42,7 @@ class TriggersService {
     try {
       return self.eventsRepository.updateItem(entity);
     } catch (error) {
+      self.logger.error(error);
       throw error;
     }
   }
@@ -47,6 +52,7 @@ class TriggersService {
     try {
       return self.triggersRepository.deleteItem(id);
     } catch (error) {
+      self.logger.error(error);
       throw error;
     }
   }

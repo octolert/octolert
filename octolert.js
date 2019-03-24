@@ -40,7 +40,7 @@ const EventsProcessor = require('./src/events-processor.js');
 const loggerFactory = new LoggerFactory();
 const logger = loggerFactory.getLogger(EnvironmentNames.PRODUCTION, false);
 
-const globoardsService = new GloboardsService();
+const globoardsService = new GloboardsService({ logger });
 
 const integrationsRepository = new IntegrationsRepository();
 const integrationsService = new IntegrationsService({ integrationsRepository });

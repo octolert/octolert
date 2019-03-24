@@ -2,6 +2,7 @@ class IntegrationsService {
   constructor(options) {
     const self = this;
     self.integrationsRepository = options.integrationsRepository;
+    self.logger = options.logger;
   }
 
   async getItems() {
@@ -10,7 +11,8 @@ class IntegrationsService {
       const items = await self.integrationsRepository.getItems();
       return items;
     } catch (error) {
-      throw new Error(error);
+      self.logger.error(error);
+      throw error;
     }
   }
 
@@ -20,7 +22,8 @@ class IntegrationsService {
       const item = await self.integrationsRepository.getItem(name);
       return item;
     } catch (error) {
-      throw new Error(error);
+      self.logger.error(error);
+      throw error;
     }
   }
 
@@ -30,7 +33,8 @@ class IntegrationsService {
       await self.integrationsRepository.addItem(entity);
       return entity;
     } catch (error) {
-      throw new Error(error);
+      self.logger.error(error);
+      throw error;
     }
   }
 
@@ -40,7 +44,8 @@ class IntegrationsService {
       await self.integrationsRepository.updateItem(entity);
       return entity;
     } catch (error) {
-      throw new Error(error);
+      self.logger.error(error);
+      throw error;
     }
   }
 
@@ -49,18 +54,24 @@ class IntegrationsService {
     try {
       await self.integrationsRepository.deleteItem(name);
     } catch (error) {
-      throw new Error(error);
+      self.logger.error(error);
+      throw error;
     }
   }
 
   async saveToken(options) {
     const self = this;
-    const entity = await self.getItem(options.name);
-    if (entity == null) {
-      throw new Error('could not find integration.');
+    try {
+      const entity = await self.getItem(options.name);
+      if (entity == null) {
+        throw new Error('could not find integration.');
+      }
+      entity.attributes.token = options.token;
+      await self.updateItem(entity);
+    } catch (error) {
+      self.logger.error(error);
+      throw error;
     }
-    entity.attributes.token = options.token;
-    await self.updateItem(entity);
   }
 }
 module.exports = IntegrationsService;
