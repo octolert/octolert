@@ -2,20 +2,17 @@ const express = require('express');
 
 const getRouter = (options) => {
   const router = express.Router();
-  const { logger, alertPlayer } = options;
+  const { alertPlayer, serviceRouter } = options;
   const route = '/api/alertplayer/';
 
   router.route(route)
     .post((req, res) => {
-      logger.debug(`POST: ${route}`);
-      logger.debug(`Request Body: ${req.body}`);
+      serviceRouter.logPost(route, req);
       const entities = req.body;
       alertPlayer.play(entities).then(() => {
-        logger.debug('Success');
-        res.status(200).send();
+        serviceRouter.success(res);
       }).catch((reason) => {
-        logger.error(reason);
-        res.status(500).send(reason);
+        serviceRouter.success(reason, res);
       });
     });
 

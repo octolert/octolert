@@ -12,6 +12,8 @@ const { EnvironmentNames } = require('mdb-core');
 
 const packageJson = require('./package.json');
 
+const ServiceRouter = require('./src/service-router.js');
+
 const authGloBoardsRouter = require('./src/routes/auth-globoards-router.js');
 const globoardsRouter = require('./src/routes/integrations/globoards-router.js');
 const settingsRouter = require('./api/settings-router.js');
@@ -56,6 +58,8 @@ const triggerAlertsService = new TriggerAlertsService({
 
 const alertPlayer = new AlertPlayer();
 
+const serviceRouter = new ServiceRouter({ logger });
+
 const eventsProcessor = new EventsProcessor({
   delay: 60000,
   integrationsService,
@@ -91,7 +95,7 @@ app.use(settingsRouter);
 app.use(triggerAlertsRouter({ logger, triggerAlertsService }));
 app.use(triggersRouter({ logger, triggersService }));
 app.use(defaultAlertsRouter({ logger, defaultAlertsService }));
-app.use(alertPlayerRouter({ logger, alertPlayer }));
+app.use(alertPlayerRouter({ serviceRouter, logger, alertPlayer }));
 app.use(hootsuiteHealthChecksRouter());
 app.get('*', (req, res) => {
   logger.debug('GET Request Received on *.');

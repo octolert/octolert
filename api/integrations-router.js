@@ -2,10 +2,14 @@ const express = require('express');
 
 const getRouter = (options) => {
   const router = express.Router();
+  const { logger, integrationsService } = options;
+  const route = '/api/integrations';
+  const itemRoute = '/api/integrations/:name';
 
-  router.route('/api/integrations')
+  router.route(route)
     .get((req, res) => {
-      options.integrationsService.getItems().then((result) => {
+      logger.debug(`GET: ${route}`);
+      integrationsService.getItems().then((result) => {
         res.status(200).send(result);
       }).catch((reason) => {
         console.log(reason);
@@ -13,7 +17,8 @@ const getRouter = (options) => {
       });
     })
     .post((req, res) => {
-      options.integrationsService.addItem(req.body).then((result) => {
+      logger.debug(`POST: ${route}`);
+      integrationsService.addItem(req.body).then((result) => {
         res.status(200).send(result);
       }).catch((reason) => {
         console.log(reason);
@@ -21,9 +26,10 @@ const getRouter = (options) => {
       });
     });
 
-  router.route('/api/integrations/:name')
+  router.route(itemRoute)
     .get((req, res) => {
-      options.integrationsService.getItem(req.params.name).then((result) => {
+      logger.debug(`GET: ${route}`);
+      integrationsService.getItem(req.params.name).then((result) => {
         res.status(200).send(result);
       }).catch((reason) => {
         console.log(reason);
@@ -31,9 +37,10 @@ const getRouter = (options) => {
       });
     })
     .put((req, res) => {
+      logger.debug(`PUT: ${route}`);
       const entity = req.body;
       entity.name = req.params.name;
-      options.integrationsService.updateItem(entity).then((result) => {
+      integrationsService.updateItem(entity).then((result) => {
         res.status(200).send(result);
       }).catch((reason) => {
         console.log(reason);
@@ -41,7 +48,8 @@ const getRouter = (options) => {
       });
     })
     .delete((req, res) => {
-      options.integrationsService.deleteItem(req.params.name).then((result) => {
+      logger.debug(`DELETE: ${route}`);
+      integrationsService.deleteItem(req.params.name).then((result) => {
         res.status(200).send(result);
       }).catch((reason) => {
         console.log(reason);
