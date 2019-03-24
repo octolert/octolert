@@ -4,31 +4,52 @@ const getRouter = (options) => {
   const router = express.Router();
   const route = '/api/triggers';
   const itemRoute = '/api/triggers/:id';
+  const { serviceRouter, triggersService } = options;
 
   router.route(route)
     .get((req, res) => {
-      const entities = options.triggersService.getItems();
-      res.status(200).send(entities);
+      serviceRouter.logGet(route);
+      triggersService.getItems().then((result) => {
+        serviceRouter.success(res, result);
+      }).catch((reason) => {
+        serviceRouter.error(reason, res);
+      });
     })
     .post((req, res) => {
-      const entity = options.triggersService.addItem(req.body);
-      res.status('200').send(entity);
+      serviceRouter.logPost(route, req);
+      triggersService.addItem(req.body).then((result) => {
+        serviceRouter.success(res, result);
+      }).catch((reason) => {
+        serviceRouter.error(reason, res);
+      });
     });
 
   router.route(itemRoute)
     .get((req, res) => {
-      const entity = options.triggersService.getItem(req.params.id);
-      res.status(200).send(entity);
+      serviceRouter.logGetItem(route);
+      triggersService.getItem(req.params.id).then((result) => {
+        serviceRouter.success(res, result);
+      }).catch((reason) => {
+        serviceRouter.error(reason, res);
+      });
     })
     .put((req, res) => {
+      serviceRouter.logPut(route, req);
       const entity = req.body;
       entity.id = req.params.id;
-      options.triggersService.updateItem(entity);
-      res.status(200).send(entity);
+      triggersService.updateItem(entity).then((result) => {
+        serviceRouter.success(res, result);
+      }).catch((reason) => {
+        serviceRouter.error(reason, res);
+      });
     })
     .delete((req, res) => {
-      options.triggersService.deleteItem(req.params.id);
-      res.status(200).send();
+      serviceRouter.logDelete(route);
+      triggersService.deleteItem(req.params.id).then((result) => {
+        serviceRouter.success(res, result);
+      }).catch((reason) => {
+        serviceRouter.error(reason, res);
+      });
     });
 
   return router;

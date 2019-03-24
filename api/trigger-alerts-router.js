@@ -2,31 +2,53 @@ const express = require('express');
 
 const getRouter = (options) => {
   const router = express.Router();
+  const { serviceRouter, triggersAlertsService } = options;
+  const route = '/api/triggeralerts';
+  const itemRoute = '/api/triggeralerts/:id';
 
-  router.route('/api/triggeralerts')
+  router.route(route)
     .get((req, res) => {
-      const entities = options.triggersAlertsService.getItems();
-      res.status(200).send(entities);
+      serviceRouter.logGet(route);
+      triggersAlertsService.getItems().then((result) => {
+        serviceRouter.success(res, result);
+      }).catch((reason) => {
+        serviceRouter.error(reason, res);
+      });
     })
     .post((req, res) => {
-      const entity = options.triggersAlertsService.addItem(req.body);
-      res.status('200').send(entity);
+      serviceRouter.logPost(route, req);
+      triggersAlertsService.addItem(req.body).then((result) => {
+        serviceRouter.success(res, result);
+      }).catch((reason) => {
+        serviceRouter.error(reason, res);
+      });
     });
 
-  router.route('/api/triggeralerts/:id')
+  router.route(itemRoute)
     .get((req, res) => {
-      const entity = options.triggersAlertsService.getItem(req.params.id);
-      res.status(200).send(entity);
+      serviceRouter.logGetItem(route);
+      triggersAlertsService.getItem(req.params.id).then((result) => {
+        serviceRouter.success(res, result);
+      }).catch((reason) => {
+        serviceRouter.error(reason, res);
+      });
     })
     .put((req, res) => {
+      serviceRouter.logPut(route, req);
       const entity = req.body;
       entity.id = req.params.id;
-      options.triggersAlertsService.updateItem(entity);
-      res.status(200).send(entity);
+      triggersAlertsService.updateItem(entity).then((result) => {
+        serviceRouter.success(res, result);
+      }).catch((reason) => {
+        serviceRouter.error(reason, res);
+      });
     })
     .delete((req, res) => {
-      options.triggersAlertsService.deleteItem(req.params.id);
-      res.status(200).send();
+      triggersAlertsService.deleteItem(req.params.id).then((result) => {
+        serviceRouter.success(res, result);
+      }).catch((reason) => {
+        serviceRouter.error(reason, res);
+      });
     });
 
   return router;

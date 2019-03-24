@@ -46,7 +46,9 @@ const integrationsRepository = new IntegrationsRepository();
 const integrationsService = new IntegrationsService({ integrationsRepository });
 
 const defaultAlertsRepository = new DefaultAlertsRepository();
-const defaultAlertsService = new DefaultAlertsService({ defaultAlertsRepository });
+const defaultAlertsService = new DefaultAlertsService({
+  defaultAlertsRepository,
+});
 
 const triggersRepository = new TriggersRepository();
 const triggersService = new TriggersService({ triggersRepository });
@@ -88,31 +90,43 @@ app.set('views', path.resolve(__dirname, 'src'));
 app.options('*', cors());
 app.disable('x-powered-by');
 app.use(configuration.basePath, express.static(path.join(`${__dirname}/public`)));
-app.use(globoardsRouter({ logger, integrationsService, globoardsService }));
-app.use(authGloBoardsRouter({ logger, integrationsService }));
-app.use(integrationsRouter({ logger, integrationsService }));
-app.use(settingsRouter);
-app.use(triggerAlertsRouter({ logger, triggerAlertsService }));
-app.use(triggersRouter({ logger, triggersService }));
-app.use(defaultAlertsRouter({ logger, defaultAlertsService }));
-app.use(alertPlayerRouter({ serviceRouter, logger, alertPlayer }));
-app.use(hootsuiteHealthChecksRouter());
-app.get('*', (req, res) => {
-  logger.debug('GET Request Received on *.');
-  const viewModel = {
-    isDebug: configuration.isDebug,
-    basePath: configuration.basePath,
-    appData: {
-      version: packageJson.version,
-    },
-  };
-  res.status(200).render('index', viewModel);
-});
 
-app.listen(configuration.port, (err) => {
-  if (err) {
-    logger.error(err);
-    process.exit(1);
-  }
-  logger.info(`==> 🌎 Listening on port ${configuration.port}. Open up http://localhost:13378/ in your browser.`);
-});
+function addRoutes() {
+  app.use(globoardsRouter({
+    logger, integrationsService, globoardsService, serviceRouter,
+  }));
+  app.use(authGloBoardsRouter({ logger, integrationsService, serviceRouter }));
+  app.use(integrationsRouter({ logger, integrationsService, serviceRouter }));
+  app.use(settingsRouter);
+  app.use(triggerAlertsRouter({
+    logger, triggerAlertsService, serviceRouter,
+  }));
+  app.use(triggersRouter({ logger, triggersService, serviceRouter }));
+  app.use(defaultAlertsRouter({ logger, defaultAlertsService, serviceRouter }));
+  app.use(alertPlayerRouter({ serviceRouter, logger, alertPlayer }));
+  app.use(hootsuiteHealthChecksRouter());
+  app.get('*', (req, res) => {
+    logger.debug('GET Request Received on *.');
+    const viewModel = {
+      isDebug: configuration.isDebug,
+      basePath: configuration.basePath,
+      appData: {
+        version: packageJson.version,
+      },
+    };
+    res.status(200).render('index', viewModel);
+  });
+}
+
+function start() {
+  app.listen(configuration.port, (err) => {
+    if (err) {
+      logger.error(err);
+      process.exit(1);
+    }
+    logger.info(`==> 🌎 Listening on port ${configuration.port}. Open up http://localhost:13378/ in your browser.`);
+  });
+}
+
+addRoutes();
+start();

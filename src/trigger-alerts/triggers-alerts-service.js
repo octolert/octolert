@@ -4,25 +4,27 @@ class TriggerAlertsService {
     self.triggerAlertsRepository = options.triggerAlertsRepository;
   }
 
-  getItems(options) {
+  async getItems(options) {
     const self = this;
     try {
-      return self.triggerAlertsRepository.getItems(options);
+      const entities = await self.triggerAlertsRepository.getItems(options);
+      return entities;
     } catch (error) {
       throw error;
     }
   }
 
-  getItem(id) {
+  async getItem(id) {
     const self = this;
     try {
-      return self.triggerAlertsRepository.getItem(id);
+      const entity = self.triggerAlertsRepository.getItem(id);
+      return entity;
     } catch (error) {
       throw error;
     }
   }
 
-  createItem(entity) {
+  async createItem(entity) {
     const self = this;
     try {
       return self.triggerAlertsRepository.createItem(entity);
@@ -31,7 +33,7 @@ class TriggerAlertsService {
     }
   }
 
-  updateItem(entity) {
+  async updateItem(entity) {
     const self = this;
     try {
       return self.triggerAlertsRepository.updateItem(entity);
@@ -40,7 +42,7 @@ class TriggerAlertsService {
     }
   }
 
-  deleteItem(id) {
+  async deleteItem(id) {
     const self = this;
     try {
       return self.triggerAlertsRepository.deleteItem(id);

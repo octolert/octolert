@@ -2,30 +2,26 @@ const express = require('express');
 
 const getRouter = (options) => {
   const router = express.Router();
-  const { logger, defaultAlertsService } = options;
+  const { defaultAlertsService, serviceRouter } = options;
   const route = '/api/default-alerts';
 
   router.route(route)
     .get((req, res) => {
-      logger.debug(`GET: ${route}`);
+      serviceRouter.logGet(route);
       try {
         const entities = defaultAlertsService.getItems();
-        logger.debug('Success');
-        res.status(200).send(entities);
+        serviceRouter.success(res, entities);
       } catch (reason) {
-        logger.error(reason);
-        res.status(500).send(reason);
+        serviceRouter.error(reason, res);
       }
     })
     .post((req, res) => {
-      logger.debug(`POST: ${route}`);
-      logger.debug(`Request Body: ${req.body}`);
+      serviceRouter.logPost(route, req);
       try {
         const entity = defaultAlertsService.updateItem(req.body);
-        res.status('200').send(entity);
+        serviceRouter.success(res, entity);
       } catch (reason) {
-        logger.error(reason);
-        res.status(500).send(reason);
+        serviceRouter.error(reason);
       }
     });
 

@@ -6,31 +6,51 @@ class IntegrationsService {
 
   async getItems() {
     const self = this;
-    const items = await self.integrationsRepository.getItems();
-    return items;
+    try {
+      const items = await self.integrationsRepository.getItems();
+      return items;
+    } catch (error) {
+      throw new Error(error);
+    }
   }
 
   async getItem(name) {
     const self = this;
-    const item = await self.integrationsRepository.getItem(name);
-    return item;
+    try {
+      const item = await self.integrationsRepository.getItem(name);
+      return item;
+    } catch (error) {
+      throw new Error(error);
+    }
   }
 
   async addItem(entity) {
     const self = this;
-    await self.integrationsRepository.addItem(entity);
-    return entity;
+    try {
+      await self.integrationsRepository.addItem(entity);
+      return entity;
+    } catch (error) {
+      throw new Error(error);
+    }
   }
 
   async updateItem(entity) {
     const self = this;
-    await self.integrationsRepository.updateItem(entity);
-    return entity;
+    try {
+      await self.integrationsRepository.updateItem(entity);
+      return entity;
+    } catch (error) {
+      throw new Error(error);
+    }
   }
 
   async deleteItem(name) {
     const self = this;
-    await self.integrationsRepository.deleteItem(name);
+    try {
+      await self.integrationsRepository.deleteItem(name);
+    } catch (error) {
+      throw new Error(error);
+    }
   }
 
   async saveToken(options) {

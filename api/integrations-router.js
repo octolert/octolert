@@ -2,58 +2,53 @@ const express = require('express');
 
 const getRouter = (options) => {
   const router = express.Router();
-  const { logger, integrationsService } = options;
+  const { integrationsService, serviceRouter } = options;
   const route = '/api/integrations';
   const itemRoute = '/api/integrations/:name';
 
   router.route(route)
     .get((req, res) => {
-      logger.debug(`GET: ${route}`);
+      serviceRouter.logGet(route);
       integrationsService.getItems().then((result) => {
-        res.status(200).send(result);
+        serviceRouter.success(res, result);
       }).catch((reason) => {
-        console.log(reason);
-        res.status(500).send('error');
+        serviceRouter.error(reason, res);
       });
     })
     .post((req, res) => {
-      logger.debug(`POST: ${route}`);
+      serviceRouter.logPost(route, req);
       integrationsService.addItem(req.body).then((result) => {
-        res.status(200).send(result);
+        serviceRouter.success(res, result);
       }).catch((reason) => {
-        console.log(reason);
-        res.status(500).send('error');
+        serviceRouter.error(reason, res);
       });
     });
 
   router.route(itemRoute)
     .get((req, res) => {
-      logger.debug(`GET: ${route}`);
+      serviceRouter.logGetItem(itemRoute);
       integrationsService.getItem(req.params.name).then((result) => {
-        res.status(200).send(result);
+        serviceRouter.success(result);
       }).catch((reason) => {
-        console.log(reason);
-        res.status(500).send('error');
+        serviceRouter.error(reason, res);
       });
     })
     .put((req, res) => {
-      logger.debug(`PUT: ${route}`);
+      serviceRouter.logPut(itemRoute, req);
       const entity = req.body;
       entity.name = req.params.name;
       integrationsService.updateItem(entity).then((result) => {
-        res.status(200).send(result);
+        serviceRouter.success(res, result);
       }).catch((reason) => {
-        console.log(reason);
-        res.status(500).send('error');
+        serviceRouter.error(reason, res);
       });
     })
     .delete((req, res) => {
-      logger.debug(`DELETE: ${route}`);
+      serviceRouter.logDelete(itemRoute);
       integrationsService.deleteItem(req.params.name).then((result) => {
-        res.status(200).send(result);
+        serviceRouter.success(res, result);
       }).catch((reason) => {
-        console.log(reason);
-        res.status(500).send('error');
+        serviceRouter.error(reason, res);
       });
     });
 

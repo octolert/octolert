@@ -4,10 +4,11 @@ class TriggersService {
     self.triggersRepository = options.triggersRepository;
   }
 
-  getItems() {
+  async getItems() {
     const self = this;
     try {
-      return self.triggersRepository.getItems();
+      const entities = await self.triggersRepository.getItems();
+      return entities;
     } catch (error) {
       throw error;
     }
@@ -16,7 +17,8 @@ class TriggersService {
   getItem(id) {
     const self = this;
     try {
-      return self.triggersRepository.getItem(id);
+      const entity = self.triggersRepository.getItem(id);
+      return entity;
     } catch (error) {
       throw error;
     }
