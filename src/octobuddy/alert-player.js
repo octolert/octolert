@@ -2,9 +2,10 @@
 const AlertFactory = require('./alert-player-factory.js');
 
 class AlertPlayer {
-  constructor() {
+  constructor(options) {
     const self = this;
-    self.alertFactory = new AlertFactory();
+    self.alertFactory = new AlertFactory({ logger: options.logger });
+    self.logger = options.logger;
   }
 
   async play(alerts) {

@@ -13,18 +13,19 @@ class EventsProcessor {
     self.alertPlayer = options.alertPlayer;
     self.integrationsMap = new Map();
     self.globoardsService = options.globoardsService;
+    self.logger = options.logger;
   }
 
   start() {
     const self = this;
-    console.log('Starting');
+    self.logger.info('Starting');
     self.running = true;
     self.process(self);
   }
 
   stop() {
     const self = this;
-    console.log('Stopping');
+    self.logger.info('Stopping');
     self.running = false;
   }
 
@@ -36,7 +37,7 @@ class EventsProcessor {
     const self = this;
     // get triggers for this integration to get a list of unique source ids
     const triggers = await self.triggersService.getItems();
-    console.log(`${triggers.length} triggers found for integration ${integration.name}.`);
+    self.logger.info(`${triggers.length} triggers found for integration ${integration.name}.`);
     const sourcesSet = new Set();
     for (let j = 0; j < triggers.length; j += 1) {
       const trigger = triggers[j];
@@ -44,7 +45,7 @@ class EventsProcessor {
         sourcesSet.add(trigger.sourceId);
       }
     }
-    console.log(`${sourcesSet.size} unique sources found for integration ${integration.name}.`);
+    self.logger.info(`${sourcesSet.size} unique sources found for integration ${integration.name}.`);
     return sourcesSet;
   }
 
@@ -120,11 +121,11 @@ class EventsProcessor {
     const self = processor;
 
     if (self.running) {
-      console.log('Creating Events...');
+      self.logger.info('Creating Events...');
       const events = [];
       // loop through each integration
       const integrations = await processor.integrationsService.getItems();
-      console.log(`${integrations.length} Integrations Found.`);
+      self.logger.info(`${integrations.length} Integrations Found.`);
       for (let i = 0; i < integrations.length; i += 1) {
         const integration = integrations[i];
         const integrationSources = await processor.createIntegrationSourceSet(integration);
@@ -142,7 +143,7 @@ class EventsProcessor {
         }
       }
 
-      console.log(events);
+      self.logger.info(events);
       // check event against all triggers
 
       /* console.log(`${triggers.length} triggers found for integration ${integration.name}.`);

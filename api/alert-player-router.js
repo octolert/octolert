@@ -12,7 +12,7 @@ const getRouter = (options) => {
       alertPlayer.play(entities).then(() => {
         serviceRouter.success(res);
       }).catch((reason) => {
-        serviceRouter.success(reason, res);
+        serviceRouter.error(reason, res);
       });
     });
 

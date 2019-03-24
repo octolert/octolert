@@ -58,7 +58,7 @@ const triggerAlertsService = new TriggerAlertsService({
   triggerAlertsRepository,
 });
 
-const alertPlayer = new AlertPlayer();
+const alertPlayer = new AlertPlayer({ logger });
 
 const serviceRouter = new ServiceRouter({ logger });
 
@@ -68,6 +68,7 @@ const eventsProcessor = new EventsProcessor({
   triggersService,
   triggerAlertsService,
   globoardsService,
+  logger,
 });
 eventsProcessor.start();
 
