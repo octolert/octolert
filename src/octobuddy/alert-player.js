@@ -1,3 +1,4 @@
+/* eslint-disable no-await-in-loop */
 const AlertFactory = require('./alert-player-factory.js');
 
 class AlertPlayer {

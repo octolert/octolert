@@ -1,3 +1,5 @@
+/* eslint-disable max-len */
+/* eslint-disable no-await-in-loop */
 /* eslint-disable class-methods-use-this */
 /* eslint-disable no-restricted-syntax */
 class EventsProcessor {
@@ -133,7 +135,9 @@ class EventsProcessor {
         }
 
         for (const sourceId of integrationSources) {
-          const sourceEvents = processor.generateEvents(integration, integrationSourcesMap, sourceId);
+          const sourceEvents = processor.generateEvents(
+            integration, integrationSourcesMap, sourceId,
+          );
           events.concat(sourceEvents);
         }
       }
