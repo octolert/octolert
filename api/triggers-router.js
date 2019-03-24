@@ -2,8 +2,10 @@ const express = require('express');
 
 const getRouter = (options) => {
   const router = express.Router();
+  const route = '/api/triggers';
+  const itemRoute = '/api/triggers/:id';
 
-  router.route('/api/triggers')
+  router.route(route)
     .get((req, res) => {
       const entities = options.triggersService.getItems();
       res.status(200).send(entities);
@@ -13,7 +15,7 @@ const getRouter = (options) => {
       res.status('200').send(entity);
     });
 
-  router.route('/api/triggers/:id')
+  router.route(itemRoute)
     .get((req, res) => {
       const entity = options.triggersService.getItem(req.params.id);
       res.status(200).send(entity);

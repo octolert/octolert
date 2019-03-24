@@ -32,6 +32,8 @@
         "ejs": "2.6.1",
         "express": "4.16.4",
         "mdb-build-tools": "0.1.1",
+        "mdb-core": "0.1.0",
+        "mdb-logging": "0.1.0",
         "moment": "2.24.0",
         "nedb": "1.8.0",
         "os": "0.1.1",

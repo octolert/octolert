@@ -2,11 +2,11 @@ const express = require('express');
 
 const getRouter = (options) => {
   const router = express.Router();
-  const { logger, alertPlayer } = options;
-  const route = '/api/alertplayer/';
+  const { logger } = options;
+  const route = '/api/logs/';
 
   router.route(route)
-    .post((req, res) => {
+    .get((req, res) => {
       logger.debug(`POST: ${route}`);
       logger.debug(`Request Body: ${req.body}`);
       const entities = req.body;

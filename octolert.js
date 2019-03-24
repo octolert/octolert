@@ -6,6 +6,8 @@
 const path = require('path');
 const express = require('express');
 const bodyParser = require('body-parser');
+const { LoggerFactory } = require('mdb-logging');
+const { EnvironmentNames } = require('mdb-core');
 
 const authGloBoardsRouter = require('./src/routes/auth-globoards-router.js');
 const globoardsRouter = require('./src/routes/integrations/globoards-router.js');
@@ -15,6 +17,8 @@ const triggersRouter = require('./api/triggers-router.js');
 const alertPlayerRouter = require('./api/alert-player-router.js');
 const integrationsRouter = require('./api/integrations-router.js');
 const defaultAlertsRouter = require('./api/default-alerts-router.js');
+const hootsuiteHealthChecksRouter = require('./src/routes/hootsuite-health-checks-router.js');
+
 const IntegrationsRepository = require('./src/integrations/integrations-repository.js');
 const IntegrationsService = require('./src/integrations/integrations-service.js');
 const TriggersRepository = require('./src/triggers/triggers-respository.js');
@@ -27,7 +31,9 @@ const DefaultAlertsService = require('./src/default-alerts/default-alerts-servic
 const AlertPlayer = require('./src/octobuddy/alert-player.js');
 
 const EventsProcessor = require('./src/events-processor.js');
-const Network = require('./network.js');
+
+const loggerFactory = new LoggerFactory();
+const logger = loggerFactory.getLogger(EnvironmentNames.PRODUCTION, false);
 
 const globoardsService = new GloboardsService();
 
@@ -75,29 +81,30 @@ app.set('view engine', 'ejs');
 app.set('views', path.resolve(__dirname, 'src'));
 
 app.use(configuration.basePath, express.static(path.join(`${__dirname}/public`)));
-app.use(globoardsRouter({ integrationsService, globoardsService }));
-app.use(authGloBoardsRouter({ integrationsService }));
-app.use(integrationsRouter({ integrationsService }));
+app.use(globoardsRouter({ logger, integrationsService, globoardsService }));
+app.use(authGloBoardsRouter({ logger, integrationsService }));
+app.use(integrationsRouter({ logger, integrationsService }));
 app.use(settingsRouter);
-app.use(triggerAlertsRouter({ triggerAlertsService }));
-app.use(triggersRouter({ triggersService }));
-app.use(defaultAlertsRouter({ defaultAlertsService }));
-app.use(alertPlayerRouter({ alertPlayer }));
+app.use(triggerAlertsRouter({ logger, triggerAlertsService }));
+app.use(triggersRouter({ logger, triggersService }));
+app.use(defaultAlertsRouter({ logger, defaultAlertsService }));
+app.use(alertPlayerRouter({ logger, alertPlayer }));
+app.use(hootsuiteHealthChecksRouter());
 app.get('*', (req, res) => {
-  console.log('GET Request Received.');
-  res.status(200)
-    .render('index', {
-      isDebug: configuration.isDebug,
-      basePath: configuration.basePath,
-      appData: {
-      },
-    });
+  logger.debug('GET Request Received on *.');
+  const viewModel = {
+    isDebug: configuration.isDebug,
+    basePath: configuration.basePath,
+    appData: {
+    },
+  };
+  res.status(200).render('index', viewModel);
 });
 
 app.listen(configuration.port, (err) => {
   if (err) {
-    console.log(err);
+    logger.error(err);
     process.exit(1);
   }
-  console.log(`==> 🌎 Listening on port ${configuration.port}. Open up ${basePath}/ in your browser.`);
+  logger.info(`==> 🌎 Listening on port ${configuration.port}. Open up ${basePath}/ in your browser.`);
 });

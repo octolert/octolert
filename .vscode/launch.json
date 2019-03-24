@@ -11,6 +11,8 @@
               "NODE_ENV": "development",
               "IS_DEBUG": "true"
           },
+          "console": "integratedTerminal",
+          "internalConsoleOptions": "neverOpen",
           "stopOnEntry":true
       },
       {
