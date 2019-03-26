@@ -39,11 +39,11 @@ class TriggersRepository {
   addItem(entity) {
     const self = this;
     return new Promise((resolve, reject) => {
-      self.db.insert(entity, (err) => {
+      self.db.insert(entity, (err, newDoc) => {
         if (err) {
           reject(err);
         }
-        resolve();
+        resolve(newDoc);
       });
     });
   }
