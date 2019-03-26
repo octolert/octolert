@@ -16,12 +16,8 @@ const getRouter = (options) => {
       });
     })
     .post((req, res) => {
-      serviceRouter.logPost(route, req);
-      triggersService.addItem(req.body).then((result) => {
-        serviceRouter.success(res, result);
-      }).catch((reason) => {
-        serviceRouter.error(reason, res);
-      });
+      const entity = options.triggersService.createItem(req.body);
+      res.status('200').send(entity);
     });
 
   router.route(itemRoute)

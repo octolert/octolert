@@ -30,7 +30,7 @@ class TriggersService {
   createItem(entity) {
     const self = this;
     try {
-      return self.triggersRepository.createItem(entity);
+      return self.triggersRepository.addItem(entity);
     } catch (error) {
       self.logger.error(error);
       throw error;
