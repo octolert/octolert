@@ -37,7 +37,7 @@ class AlertPlayer extends Component {
             <label htmlFor="positiveMessage">Text</label>
             <textarea rows="6" type="text" value={self.state.text} onChange={self.handleTextChange} />
           </div>
-        <button className="button-primary" onClick={self.handlePlayAlert}>Play</button>
+        <button type="button" className="button-primary" onClick={self.handlePlayAlert}>Play</button>
       </div>
     );
   }

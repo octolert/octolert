@@ -47,7 +47,7 @@ class Settings extends Component {
               value="VIEW_ALL_ALERTS"
               onClick={this.changeTab.bind(this)}
             >
-            View All Custom Alerts 2
+            View All Custom Alerts
             </button>
             <button
               type="button"
