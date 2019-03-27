@@ -9,7 +9,11 @@ const getRouter = (options) => {
   router.route(route)
     .get((req, res) => {
       serviceRouter.logGet(route);
-      triggersService.getItems().then((result) => {
+      const request = {
+        integrationId: req.query.integrationId,
+        sourceId: req.query.sourceId,
+      };
+      triggersService.getItems(request).then((result) => {
         serviceRouter.success(res, result);
       }).catch((reason) => {
         serviceRouter.error(reason, res);

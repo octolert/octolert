@@ -1,3 +1,6 @@
+/* eslint-disable no-param-reassign */
+const uuidv1 = require('uuid/v1');
+
 class TriggerAlertsService {
   constructor(options) {
     const self = this;
@@ -30,6 +33,7 @@ class TriggerAlertsService {
   async createItem(entity) {
     const self = this;
     try {
+      entity.id = uuidv1();
       return self.triggerAlertsRepository.addItem(entity);
     } catch (error) {
       self.logger.error(error);

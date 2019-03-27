@@ -10,10 +10,24 @@ class TriggersRepository {
     self.db.loadDatabase();
   }
 
-  getItems() {
+  /**
+   * Get a list of items
+   * @param {*} options.integrationId
+   * @param {*} options.sourceId
+   */
+  getItems(options) {
     const self = this;
     return new Promise((resolve, reject) => {
-      self.db.find({}, (err, docs) => {
+      const query = {};
+      if (options) {
+        if (options.integrationId) {
+          query.integrationId = options.integrationId;
+        }
+        if (options.sourceId) {
+          query.sourceId = options.sourceId;
+        }
+      }
+      self.db.find(query, (err, docs) => {
         if (err) {
           reject(err);
         } else {

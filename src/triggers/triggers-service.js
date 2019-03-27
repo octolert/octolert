@@ -1,3 +1,6 @@
+/* eslint-disable no-param-reassign */
+const uuidv1 = require('uuid/v1');
+
 class TriggersService {
   constructor(options) {
     const self = this;
@@ -5,10 +8,10 @@ class TriggersService {
     self.logger = options.logger;
   }
 
-  async getItems() {
+  async getItems(options) {
     const self = this;
     try {
-      const entities = await self.triggersRepository.getItems();
+      const entities = await self.triggersRepository.getItems(options);
       return entities;
     } catch (error) {
       self.logger.error(error);
@@ -30,6 +33,7 @@ class TriggersService {
   createItem(entity) {
     const self = this;
     try {
+      entity.id = uuidv1();
       return self.triggersRepository.addItem(entity);
     } catch (error) {
       self.logger.error(error);
