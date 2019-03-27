@@ -10,3 +10,9 @@
     font-family: 'Varela Round', sans-serif;
     line-height: 50px;
 }
+
+.brand-version{
+    font-size: 12px;
+    color: grey;
+    margin-left: 14px;
+}

@@ -58,9 +58,6 @@ class App extends Component {
           )}
           <Route path="/integrate/" component={Integration} />
           <Route path="/settings/" component={Settings} />
-          <div Style="{text-align: center}">
-            version: {__APPDATA__.version}
-          </div>
         </Router>
       );
     } else {

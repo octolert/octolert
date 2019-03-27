@@ -9,6 +9,7 @@ class Navbar extends Component {
       <div class="brand">
         <BrandLogo width={50} height={50} />
         <span style={{marginLeft: '5px'}}>octolert</span>
+        <span className="brand-version"> - version: {__APPDATA__.version}</span>
       </div>
     </div>
     );
