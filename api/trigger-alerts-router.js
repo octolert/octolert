@@ -9,7 +9,10 @@ const getRouter = (options) => {
   router.route(route)
     .get((req, res) => {
       serviceRouter.logGet(route);
-      triggerAlertsService.getItems().then((result) => {
+      const request = {
+        triggerId: req.query.triggerId,
+      };
+      triggerAlertsService.getItems(request).then((result) => {
         serviceRouter.success(res, result);
       }).catch((reason) => {
         serviceRouter.error(reason, res);

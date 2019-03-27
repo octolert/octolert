@@ -10,10 +10,16 @@ class TriggerAlertsRepository {
     self.db.loadDatabase();
   }
 
-  getItems() {
+  getItems(options) {
     const self = this;
     return new Promise((resolve, reject) => {
-      self.db.find({}, (err, docs) => {
+      const query = {};
+      if (options) {
+        if (options.triggerId) {
+          query.triggerId = options.triggerId;
+        }
+      }
+      self.db.find(query, (err, docs) => {
         if (err) {
           reject(err);
         } else {
