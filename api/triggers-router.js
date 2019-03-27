@@ -17,7 +17,7 @@ const getRouter = (options) => {
     })
     .post((req, res) => {
       serviceRouter.logPost(route, req);
-      triggersService.addItem(req.body).then((result) => {
+      triggersService.createItem(req.body).then((result) => {
         serviceRouter.success(res, result);
       }).catch((reason) => {
         serviceRouter.error(reason, res);

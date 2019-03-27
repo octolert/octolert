@@ -84,6 +84,7 @@ html {
 
 
 .settings-nav-button {
+  display: flex;
   border: 0px;
   border-radius: 4px;
   margin-bottom: 5px;

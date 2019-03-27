@@ -30,7 +30,7 @@ class TriggerAlertsService {
   async createItem(entity) {
     const self = this;
     try {
-      return self.triggerAlertsRepository.createItem(entity);
+      return self.triggerAlertsRepository.addItem(entity);
     } catch (error) {
       self.logger.error(error);
       throw error;
