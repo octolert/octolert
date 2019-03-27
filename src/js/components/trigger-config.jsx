@@ -6,15 +6,12 @@ class TriggerConfig extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      errorSaving: null,
-      isLoaded: false,
-      data: null,
       boards: null,
       columns: null,
       selectedBoardId: null,
       selectedColumnId: null,
-      positiveMsg:null,
-      negativeMsg:null,
+      positiveMsg: null,
+      negativeMsg: null,
     };
     this.getColumnsForBoard = this.getColumnsForBoard.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -33,23 +30,6 @@ class TriggerConfig extends Component {
         boards: null,
       });
     });
-
-    fetch('/api/triggers')
-      .then(res => res.json())
-      .then(
-        (result) => {
-          this.setState({
-            isLoaded: true,
-            data: result
-          });
-        },
-        (error) => {
-          this.setState({
-            isLoaded: true,
-            error
-          });
-        },
-      );
   }
 
   getColumnsForBoard(boardId) {
@@ -111,26 +91,26 @@ class TriggerConfig extends Component {
     ]).then(axios.spread((firstResponse, secondResponse) => {
       axios.all([
         axios.post('/api/triggeralerts', {
-          triggerId: firstResponse.data.id,
+          triggerId: firstResponse.data._id,
           type: 'say',
           attributes: [
             { text: negativeMsg },
           ],
         }),
         axios.post('/api/triggeralerts', {
-          triggerId: secondResponse.data.id,
+          triggerId: secondResponse.data._id,
           type: 'say',
           attributes: [
             { text: positiveMsg },
           ],
         }),
       ]).then(axios.spread((firstAlertResponse, secondAlertResponse) => {
-        // final
+        // final TODO
       })).catch(() => {
-        // error
+        // error TODO
       });
     })).catch(() => {
-      // error again
+      // error again TODO
     });
     event.preventDefault();
   }
